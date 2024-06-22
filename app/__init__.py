@@ -18,5 +18,5 @@ def create_app():
     app.register_blueprint(main)
 
     return app
-# sk-proj-zEF5cRDrB2jYNGPbs2DHT3BlbkFJ7b47wSMSLKaSxKuUs6jq
+
 
