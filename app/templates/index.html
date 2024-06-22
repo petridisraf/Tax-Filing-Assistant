@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Filing Assistant</title>
+    <script>
+        async function getTaxAdvice(event) {
+            event.preventDefault();
+            const income = document.getElementById('income').value;
+            const expenses = document.getElementById('expenses').value;
+
+            const response = await fetch('/api/get_tax_advice', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ income, expenses })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                document.getElementById('advice').innerText = result.advice;
+            } else {
+                document.getElementById('advice').innerText = `Error: ${result.error}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Tax Filing Assistant</h1>
+    <p>This application provides basic tax advice based on your input.</p>
+    <form onsubmit="getTaxAdvice(event)">
+        <label for="income">Income:</label>
+        <input type="text" id="income" name="income"><br><br>
+        <label for="expenses">Expenses:</label>
+        <input type="text" id="expenses" name="expenses"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <h2>AI-generated Tax Advice:</h2>
+    <p id="advice"></p>
+</body>
+</html>
